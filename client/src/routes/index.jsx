@@ -1,5 +1,7 @@
 import React from "react";
 import SiteRoot from "../root";
+import { Route, Routes } from "react-router-dom";
+import Home from "../views/home";
 
 const Routing = () => {
   return (
