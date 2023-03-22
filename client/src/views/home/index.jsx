@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.scss";
 import fetchBooks from "../../services/getBooks";
-import { Input, Select } from "antd";
+import { Button, Input, Select, Space, Spin } from "antd";
+import Card from "../../components/card";
 const { Search } = Input;
 
 const Home = () => {
   const [count, setCount] = useState(10);
-  const [subject, setSubject] = useState("all");
+  const [subject, setSubject] = useState("");
   const [order, setOrder] = useState("relevance");
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.getBooksSlice);
@@ -105,7 +106,22 @@ const Home = () => {
       </section>
       <section id="books">
         <div className="container">
-          
+          {loading ? (
+            <Space size="middle">
+              <Spin size="small" />
+              <Spin />
+              <Spin size="large" />
+            </Space>
+          ) : (
+            <div className="row">
+              {data?.items.map((element, i) => (
+                <Card key={i} element={element} />
+              ))}
+              <div className="btn">
+                <Button>Show more</Button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </main>

@@ -1,0 +1,37 @@
+.card {
+    width: 230px;
+    padding: 20px;
+    background-color: #F3F2F1;
+
+    .image {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        img {
+            width: 130px;
+            height: 170px;
+            object-fit: cover;
+            box-shadow: 10px 10px 13px -5px rgba(0, 0, 0, 0.53);
+            -webkit-box-shadow: 10px 10px 13px -5px rgba(0, 0, 0, 0.53);
+            -moz-box-shadow: 10px 10px 13px -5px rgba(0, 0, 0, 0.53);
+        }
+
+        margin-bottom: 20px;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        a {
+            color: #97A5AF;
+            text-decoration: underline #97A5AF;
+        }
+
+        p {
+            color: #97A5AF;
+        }
+    }
+}
