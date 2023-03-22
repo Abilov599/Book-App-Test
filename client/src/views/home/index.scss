@@ -1,0 +1,39 @@
+main {
+    #search-filter {
+        .container {
+            max-width: 900px;
+
+            h1 {
+                font-size: xx-large;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .search {}
+
+            .filter {
+                display: flex;
+                justify-content: center;
+                margin-top: 25px;
+                gap: 50px;
+
+                .categories {
+                    label {
+                        margin-right: 15px;
+                    }
+                }
+
+                .sort {
+                    label {
+                        margin-right: 15px;
+                    }
+                }
+
+            }
+        }
+    }
+
+    #books {
+        .container {}
+    }
+}
