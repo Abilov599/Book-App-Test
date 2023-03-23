@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.scss";
 import fetchBooks from "../../services/getBooks";
@@ -7,6 +7,7 @@ import Card from "../../components/card";
 const { Search } = Input;
 
 const Home = () => {
+  const inputValue = useRef();
   const [count, setCount] = useState(10);
   const [subject, setSubject] = useState("");
   const [order, setOrder] = useState("relevance");
@@ -26,6 +27,7 @@ const Home = () => {
   };
 
   const handleSearch = (value) => {
+    console.log(inputValue.current.input.value);
     dispatch(
       fetchBooks(`intitle:${value}&maxResults=${count}&orderBy=${order}`)
     );
@@ -44,6 +46,7 @@ const Home = () => {
           <h1>Search for Book</h1>
           <div className="search">
             <Search
+              ref={inputValue}
               onSearch={handleSearch}
               placeholder="Book name"
               enterButton="Search"
@@ -120,6 +123,11 @@ const Home = () => {
         </div>
       </section>
       <section id="books">
+        {data?.items ? (
+          <p>{`Found ${data?.items?.length} results`}</p>
+        ) : (
+          <Empty />
+        )}
         <div className="container">
           {loading ? (
             <Space size="middle">
@@ -132,12 +140,12 @@ const Home = () => {
               {data === null ? (
                 <Empty />
               ) : (
-                data?.items.map((element, i) => (
+                data?.items?.map((element, i) => (
                   <Card key={i} element={element} />
                 ))
               )}
               <div className="btn">
-                {!(count >= 40) && data ? (
+                {data?.items && !(count >= 40) ? (
                   <Button onClick={() => handleClick()}>Show more</Button>
                 ) : null}
               </div>

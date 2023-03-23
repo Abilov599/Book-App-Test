@@ -2,7 +2,6 @@ import React from "react";
 import "./index.scss";
 
 const Card = ({ element }) => {
-  console.log(element.volumeInfo);
   return (
     <div className="card">
       <a target="_blank" href={element.volumeInfo.previewLink}>
