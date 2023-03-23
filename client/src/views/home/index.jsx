@@ -8,20 +8,26 @@ const { Search } = Input;
 
 const Home = () => {
   const [count, setCount] = useState(10);
-  const [subject, setSubject] = useState("");
+  const [subject, setSubject] = useState("Node");
   const [order, setOrder] = useState("relevance");
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.getBooksSlice);
+
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+
+  const handleClick = () => {
+    setCount((prev) => prev + 10);
+  };
+
+  /// intitle:
 
   useEffect(() => {
     dispatch(
       fetchBooks(`subject:${subject}&maxResults=${count}&orderBy=${order}`)
     );
-  }, [dispatch]);
-
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-  };
+  }, [dispatch, count]);
 
   return (
     <main>
@@ -42,14 +48,14 @@ const Home = () => {
               <Select
                 name="categories"
                 id="categories"
-                defaultValue="all"
+                defaultValue=""
                 style={{
                   width: 120,
                 }}
                 onChange={handleChange}
                 options={[
                   {
-                    value: "all",
+                    value: "",
                     label: "All",
                   },
                   {
@@ -118,7 +124,9 @@ const Home = () => {
                 <Card key={i} element={element} />
               ))}
               <div className="btn">
-                <Button>Show more</Button>
+                {!(count >= 40) ? (
+                  <Button onClick={() => handleClick()}>Show more</Button>
+                ) : null}
               </div>
             </div>
           )}
