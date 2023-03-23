@@ -16,6 +16,7 @@ const Home = () => {
   const handleChangeCategories = (value) => {
     setSubject(value);
   };
+
   const handleChangeSort = (value) => {
     setOrder(value);
   };
@@ -24,7 +25,11 @@ const Home = () => {
     setCount((prev) => prev + 10);
   };
 
-  /// intitle:
+  const handleSearch = (value) => {
+    dispatch(
+      fetchBooks(`intitle:${value}&maxResults=${count}&orderBy=${order}`)
+    );
+  };
 
   useEffect(() => {
     dispatch(
@@ -39,6 +44,7 @@ const Home = () => {
           <h1>Search for Book</h1>
           <div className="search">
             <Search
+              onSearch={handleSearch}
               placeholder="Book name"
               enterButton="Search"
               size="large"
@@ -131,7 +137,7 @@ const Home = () => {
                 ))
               )}
               <div className="btn">
-                {!(count >= 40) && data?.length > 10 ? (
+                {!(count >= 40) && data ? (
                   <Button onClick={() => handleClick()}>Show more</Button>
                 ) : null}
               </div>
