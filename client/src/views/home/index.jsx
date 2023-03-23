@@ -8,7 +8,8 @@ const { Search } = Input;
 
 const Home = () => {
   const inputValue = useRef();
-  const [count, setCount] = useState(10);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(10);
   const [subject, setSubject] = useState("");
   const [order, setOrder] = useState("relevance");
   const dispatch = useDispatch();
@@ -23,21 +24,27 @@ const Home = () => {
   };
 
   const handleClick = () => {
-    setCount((prev) => prev + 10);
+    setStart((prev) => prev + 30);
+    setEnd((prev) => prev + 30);
   };
 
   const handleSearch = (value) => {
-    console.log(inputValue.current.input.value);
     dispatch(
-      fetchBooks(`intitle:${value}&maxResults=${count}&orderBy=${order}`)
+      fetchBooks(
+        `intitle:${value}&startIndex=${start}&maxResults=${end}&orderBy=${order}`
+      )
     );
   };
 
   useEffect(() => {
-    dispatch(
-      fetchBooks(`subject:${subject}&maxResults=${count}&orderBy=${order}`)
-    );
-  }, [dispatch, count, order, subject]);
+    if (inputValue.current.input.value === "") {
+      dispatch(
+        fetchBooks(
+          `${subject}startIndex=${start}&maxResults=${end}&orderBy=${order}`
+        )
+      );
+    }
+  }, [dispatch, start, end, order, subject]);
 
   return (
     <main>
@@ -71,27 +78,27 @@ const Home = () => {
                     label: "All",
                   },
                   {
-                    value: "art",
+                    value: "subject:art&",
                     label: "Art",
                   },
                   {
-                    value: "biography",
+                    value: "subject:biography&",
                     label: "Biography",
                   },
                   {
-                    value: "computers",
+                    value: "subject:computers&",
                     label: "Computers",
                   },
                   {
-                    value: "history",
+                    value: "subject:history&",
                     label: "History",
                   },
                   {
-                    value: "medical",
+                    value: "subject:medical&",
                     label: "Medical",
                   },
                   {
-                    value: "poetry",
+                    value: "subject:poetry&",
                     label: "Poetry",
                   },
                 ]}
@@ -123,8 +130,8 @@ const Home = () => {
         </div>
       </section>
       <section id="books">
-        {data?.items ? (
-          <p>{`Found ${data?.items?.length} results`}</p>
+        {data?.totalItems ? (
+          <p>{`Found ${data?.totalItems} results`}</p>
         ) : (
           <Empty />
         )}
@@ -145,7 +152,7 @@ const Home = () => {
                 ))
               )}
               <div className="btn">
-                {data?.items && !(count >= 40) ? (
+                {data?.items && !(end >= data?.totalItems) ? (
                   <Button onClick={() => handleClick()}>Show more</Button>
                 ) : null}
               </div>
