@@ -4,7 +4,7 @@ import fetchBooks from "../services/getBooks";
 const initialState = {
   loading: false,
   error: null,
-  data: null,
+  data: null
 };
 
 const getBooksSlice = createSlice({

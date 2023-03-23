@@ -9,7 +9,7 @@ const { Search } = Input;
 const Home = () => {
   const inputValue = useRef();
   const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(10);
+  const [end, setEnd] = useState(40);
   const [subject, setSubject] = useState("");
   const [order, setOrder] = useState("relevance");
   const dispatch = useDispatch();
@@ -23,9 +23,11 @@ const Home = () => {
     setOrder(value);
   };
 
-  const handleClick = () => {
+  const handlePrev = () => {
+    setStart((prev) => prev - 30);
+  };
+  const handleNext = () => {
     setStart((prev) => prev + 30);
-    setEnd((prev) => prev + 30);
   };
 
   const handleSearch = (value) => {
@@ -45,6 +47,8 @@ const Home = () => {
       );
     }
   }, [dispatch, start, end, order, subject]);
+
+  console.log(start, end);
 
   return (
     <main>
@@ -144,18 +148,20 @@ const Home = () => {
             </Space>
           ) : (
             <div className="row">
-              {data === null ? (
-                <Empty />
-              ) : (
-                data?.items?.map((element, i) => (
-                  <Card key={i} element={element} />
-                ))
-              )}
-              <div className="btn">
-                {data?.items && !(end >= data?.totalItems) ? (
-                  <Button onClick={() => handleClick()}>Show more</Button>
-                ) : null}
-              </div>
+              {data?.items?.map((element, i) => (
+                <Card key={i} element={element} />
+              ))}
+
+              {data?.items ? (
+                <div className="btn">
+                  {start === 0 ? null : (
+                    <Button onClick={() => handlePrev()}>Prev</Button>
+                  )}
+                  {!(end >= data?.totalItems) ? (
+                    <Button onClick={() => handleNext()}>Next</Button>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           )}
         </div>
