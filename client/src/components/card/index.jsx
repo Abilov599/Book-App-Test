@@ -26,7 +26,7 @@ const Card = ({ element }) => {
           <h4>No name</h4>
         )}
         {element.volumeInfo?.authors ? (
-          <p>{element.volumeInfo?.authors[0]}</p>
+          <p>{element.volumeInfo?.authors}</p>
         ) : (
           <p>Unknown</p>
         )}
