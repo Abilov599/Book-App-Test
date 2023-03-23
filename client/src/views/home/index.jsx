@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.scss";
 import fetchBooks from "../../services/getBooks";
-import { Button, Input, Select, Space, Spin } from "antd";
+import { Button, Empty, Input, Select, Space, Spin } from "antd";
 import Card from "../../components/card";
 const { Search } = Input;
 
@@ -123,11 +123,15 @@ const Home = () => {
             </Space>
           ) : (
             <div className="row">
-              {data?.items.map((element, i) => (
-                <Card key={i} element={element} />
-              ))}
+              {data === null ? (
+                <Empty />
+              ) : (
+                data?.items.map((element, i) => (
+                  <Card key={i} element={element} />
+                ))
+              )}
               <div className="btn">
-                {!(count >= 40) ? (
+                {!(count >= 40) && data?.length > 10 ? (
                   <Button onClick={() => handleClick()}>Show more</Button>
                 ) : null}
               </div>
