@@ -8,13 +8,16 @@ const { Search } = Input;
 
 const Home = () => {
   const [count, setCount] = useState(10);
-  const [subject, setSubject] = useState("Node");
+  const [subject, setSubject] = useState("");
   const [order, setOrder] = useState("relevance");
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.getBooksSlice);
 
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
+  const handleChangeCategories = (value) => {
+    setSubject(value);
+  };
+  const handleChangeSort = (value) => {
+    setOrder(value);
   };
 
   const handleClick = () => {
@@ -27,7 +30,7 @@ const Home = () => {
     dispatch(
       fetchBooks(`subject:${subject}&maxResults=${count}&orderBy=${order}`)
     );
-  }, [dispatch, count]);
+  }, [dispatch, count, order, subject]);
 
   return (
     <main>
@@ -52,7 +55,7 @@ const Home = () => {
                 style={{
                   width: 120,
                 }}
-                onChange={handleChange}
+                onChange={handleChangeCategories}
                 options={[
                   {
                     value: "",
@@ -94,7 +97,7 @@ const Home = () => {
                 style={{
                   width: 120,
                 }}
-                onChange={handleChange}
+                onChange={handleChangeSort}
                 options={[
                   {
                     value: "relevance",
