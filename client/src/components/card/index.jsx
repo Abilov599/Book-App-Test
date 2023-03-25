@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./index.scss";
 
 const Card = ({ element }) => {
   return (
     <div className="card">
-      <a target="_blank" href={element.volumeInfo.previewLink}>
+      <Link to={`${element.id}`}>
         <div className="image">
           {element.volumeInfo?.imageLinks?.thumbnail ? (
             <img src={element.volumeInfo?.imageLinks?.thumbnail} />
@@ -12,7 +13,7 @@ const Card = ({ element }) => {
             <img src="https://www.hachette.co.nz/graphics/CoverNotAvailable.jpg" />
           )}
         </div>
-      </a>
+      </Link>
       <div className="info">
         {element.volumeInfo?.categories ? (
           <a>{element.volumeInfo?.categories[0]}</a>

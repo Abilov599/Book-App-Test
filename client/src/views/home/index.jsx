@@ -48,7 +48,6 @@ const Home = () => {
     }
   }, [dispatch, start, end, order, subject]);
 
-  console.log(start, end);
 
   return (
     <main>

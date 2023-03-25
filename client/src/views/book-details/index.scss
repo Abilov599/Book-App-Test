@@ -1,0 +1,31 @@
+#book-details {
+    .container {
+        display: flex;
+
+        .image {
+            width: 40%;
+            // background-color: #F3F2F1;
+
+            img {
+                width: 400px;
+            }
+        }
+
+        .info {
+            width: 60%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            p {
+                font-size: 18px;
+            }
+
+            textarea {
+                padding: 20px;
+                font-size: 16px;
+            }
+        }
+    }
+}
