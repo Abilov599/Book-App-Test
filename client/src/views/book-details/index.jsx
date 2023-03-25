@@ -17,7 +17,11 @@ const BookDetails = () => {
     <main id="book-details">
       <div className="container">
         <div className="image">
-          <img src={data?.volumeInfo?.imageLinks?.thumbnail} alt="" />
+          {data?.volumeInfo?.imageLinks ? (
+            <img src={data?.volumeInfo?.imageLinks?.thumbnail} alt="" />
+          ) : (
+            <img src="https://www.hachette.co.nz/graphics/CoverNotAvailable.jpg" />
+          )}
         </div>
         <div className="info">
           {data?.volumeInfo?.categories ? (
